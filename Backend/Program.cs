@@ -10,10 +10,6 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-// test
-
-
 // --- Datenbank (SQLite) ---
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=itsupport.db";
