@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using ITSupportVerwaltungsTool_Demo.Data;
 using ITSupportVerwaltungsTool_Demo.Models;
 using ITSupportVerwaltungsTool_Demo.Services;
@@ -18,7 +19,12 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connect
 builder.Services.AddScoped<TokenService>();
 
 // --- Controller + Swagger ---
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Enums (z.B. GeraeteTyp) als Text statt als Zahl im JSON ausgeben
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -101,9 +107,16 @@ using (var scope = app.Services.CreateScope())
             new Geraet { KundeId = kundeMueller.Id, Typ = GeraeteTyp.Server, Name = "DC-01", Bezeichnung = "Domaincontroller", Ip = "192.168.10.10", Seriennummer = "SN-0001" },
             new Geraet { KundeId = kundeMueller.Id, Typ = GeraeteTyp.Workstation, Name = "PC-Empfang", Bezeichnung = "Empfangs-PC", Ip = "192.168.10.51", Seriennummer = "SN-0002" },
             new Geraet { KundeId = kundeMueller.Id, Typ = GeraeteTyp.Drucker, Name = "Drucker-EG", Bezeichnung = "Etagendrucker Erdgeschoss", Ip = "192.168.10.80", Seriennummer = "SN-0003" },
-            new Geraet { KundeId = kundeSchmidt.Id, Typ = GeraeteTyp.Firewall, Name = "FW-01", Bezeichnung = "Hauptfirewall", Ip = "192.168.20.1", Seriennummer = "SN-0004" },
+            new Geraet { KundeId = kundeSchmidt.Id, Typ = GeraeteTyp.VPN, Name = "VPN-01", Bezeichnung = "Hauptstandort-VPN", Ip = "192.168.20.1", Seriennummer = "SN-0004" },
             new Geraet { KundeId = kundeSchmidt.Id, Typ = GeraeteTyp.Notebook, Name = "NB-GF", Bezeichnung = "Notebook Geschäftsführung", Ip = "192.168.20.30", Seriennummer = "SN-0005" }
         );
+
+        db.Standorte.AddRange(
+            new Standort { KundeId = kundeMueller.Id, Name = "Hauptsitz München", Adresse = "Hauptstraße 12, 80331 München" },
+            new Standort { KundeId = kundeMueller.Id, Name = "Zweigstelle Augsburg", Adresse = "Fuggerstraße 3, 86150 Augsburg" },
+            new Standort { KundeId = kundeSchmidt.Id, Name = "Büro Berlin", Adresse = "Bahnhofallee 5, 10115 Berlin" }
+        );
+
         db.SaveChanges();
     }
 }

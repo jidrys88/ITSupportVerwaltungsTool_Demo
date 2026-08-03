@@ -22,57 +22,135 @@
     <!-- Kundenliste -->
     <section class="karte" id="kunden-ansicht">
       <h1>Kunden</h1>
-      <form class="formular" id="kunde-formular">
+
+      <div><button type="button" class="primaer" id="kunde-neu-btn">+ Neuer Kunde</button></div>
+
+      <form class="formular" id="kunde-formular" style="display:none; margin-top:1rem;">
         <label>Name* <input type="text" id="kunde-name" required /></label>
         <label>Email <input type="email" id="kunde-email" /></label>
         <label>Telefonnummer <input type="text" id="kunde-telefon" /></label>
         <label>Adresse <input type="text" id="kunde-adresse" /></label>
-        <div><button type="submit" class="primaer">Kunde hinzufügen</button></div>
+        <div>
+          <button type="submit" class="primaer">Kunde hinzufügen</button>
+          <button type="button" class="sekundaer" id="kunde-abbrechen-btn">Abbrechen</button>
+        </div>
       </form>
       <p class="fehler" id="kunde-fehler"></p>
+
+      <input type="text" id="kunde-suche" placeholder="Kunde suchen..." style="width:100%; margin:1rem 0;" />
+
       <table>
         <thead>
-          <tr><th>Name</th><th>Email</th><th>Telefon</th><th>Adresse</th></tr>
+          <tr><th>Name</th><th>Email</th><th>Telefon</th><th>Adresse</th><th></th></tr>
         </thead>
         <tbody id="kunden-liste"></tbody>
       </table>
     </section>
 
-    <!-- Geräteansicht (wird per JS ein-/ausgeblendet) -->
-    <section class="karte" id="geraete-ansicht" style="display:none">
+    <!-- Kundendetail: linkes Menü + Inhalt -->
+    <section id="kunde-detail-ansicht" style="display:none">
       <button class="zurueck" id="zurueck-btn">&larr; Zurück zu den Kunden</button>
-      <h1 id="geraete-kunde-name"></h1>
+      <h1 id="detail-kunde-name"></h1>
 
-      <h2>Gerät hinzufügen</h2>
-      <form class="formular" id="geraet-formular">
-        <label>Typ*
-          <select id="geraet-typ">
-            <option value="Server">Server</option>
-            <option value="Workstation">Workstation</option>
-            <option value="Notebook">Notebook</option>
-            <option value="Switch">Switch</option>
-            <option value="Router">Router</option>
-            <option value="Drucker">Drucker</option>
-            <option value="Printserver">Printserver</option>
-            <option value="WLAN">WLAN</option>
-            <option value="Firewall">Firewall</option>
-            <option value="Telefon">Telefon</option>
-          </select>
-        </label>
-        <label>Name* <input type="text" id="geraet-name" required /></label>
-        <label>Bezeichnung <input type="text" id="geraet-bezeichnung" /></label>
-        <label>IP-Adresse <input type="text" id="geraet-ip" /></label>
-        <label>Seriennummer <input type="text" id="geraet-seriennummer" /></label>
-        <div><button type="submit" class="primaer">Gerät hinzufügen</button></div>
-      </form>
-      <p class="fehler" id="geraet-fehler"></p>
+      <div class="detail-layout">
+        <nav class="detail-menu">
+          <button class="detail-menu-btn aktiv" data-panel="info">Allgemeine Info</button>
+          <button class="detail-menu-btn" data-panel="standorte">Standorte</button>
+          <button class="detail-menu-btn" data-panel="geraete">Geräte</button>
+          <button class="detail-menu-btn" data-panel="ip">IP alle Geräte</button>
+        </nav>
 
-      <table>
-        <thead>
-          <tr><th>Typ</th><th>Name</th><th>IP</th><th>Seriennummer</th><th></th></tr>
-        </thead>
-        <tbody id="geraete-liste"></tbody>
-      </table>
+        <div class="detail-inhalt">
+
+          <!-- Allgemeine Info -->
+          <div class="detail-panel" id="panel-info">
+            <div class="karte">
+              <h2>Allgemeine Info</h2>
+              <form class="formular" id="info-formular">
+                <label>Name* <input type="text" id="info-name" required /></label>
+                <label>Email <input type="email" id="info-email" /></label>
+                <label>Telefonnummer <input type="text" id="info-telefon" /></label>
+                <label>Adresse <input type="text" id="info-adresse" /></label>
+                <div><button type="submit" class="primaer">Speichern</button></div>
+              </form>
+              <p class="fehler" id="info-fehler"></p>
+            </div>
+          </div>
+
+          <!-- Standorte -->
+          <div class="detail-panel" id="panel-standorte" style="display:none">
+            <div class="karte">
+              <h2>Standorte</h2>
+
+              <div><button type="button" class="primaer" id="standort-neu-btn">+ Neuer Standort</button></div>
+
+              <form class="formular" id="standort-formular" style="display:none; margin-top:1rem;">
+                <label>Name* <input type="text" id="standort-name" required /></label>
+                <label>Adresse <input type="text" id="standort-adresse" /></label>
+                <div>
+                  <button type="submit" class="primaer">Standort hinzufügen</button>
+                  <button type="button" class="sekundaer" id="standort-abbrechen-btn">Abbrechen</button>
+                </div>
+              </form>
+              <p class="fehler" id="standort-fehler"></p>
+              <table>
+                <thead><tr><th>Name</th><th>Adresse</th><th></th></tr></thead>
+                <tbody id="standorte-liste"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Geräte -->
+          <div class="detail-panel" id="panel-geraete" style="display:none">
+            <div class="karte">
+              <h2>Geräte</h2>
+
+              <div class="typ-filter" id="typ-filter">
+                <button class="typ-chip aktiv" data-typ="">Alle</button>
+              </div>
+
+              <div><button type="button" class="primaer" id="geraet-neu-btn">+ Neues Gerät</button></div>
+
+              <h3 id="geraet-formular-titel" style="display:none">Gerät hinzufügen</h3>
+              <form class="formular" id="geraet-formular" style="display:none; margin-top:0.5rem;">
+                <label>Typ*
+                  <select id="geraet-typ"></select>
+                </label>
+                <label>Name* <input type="text" id="geraet-name" required /></label>
+                <label>Bezeichnung <input type="text" id="geraet-bezeichnung" /></label>
+                <label>IP-Adresse <input type="text" id="geraet-ip" /></label>
+                <label>Seriennummer <input type="text" id="geraet-seriennummer" /></label>
+                <div>
+                  <button type="submit" class="primaer" id="geraet-formular-submit">Gerät hinzufügen</button>
+                  <button type="button" class="sekundaer" id="geraet-abbrechen-btn">Abbrechen</button>
+                </div>
+              </form>
+              <p class="fehler" id="geraet-fehler"></p>
+
+              <table>
+                <thead>
+                  <tr><th>Typ</th><th>Name</th><th>IP</th><th>Seriennummer</th><th></th></tr>
+                </thead>
+                <tbody id="geraete-liste"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- IP-Übersicht -->
+          <div class="detail-panel" id="panel-ip" style="display:none">
+            <div class="karte">
+              <h2>IP-Übersicht aller Geräte</h2>
+              <table>
+                <thead>
+                  <tr><th>Gerätename</th><th>Typ</th><th>Kunde</th><th>IP</th></tr>
+                </thead>
+                <tbody id="ip-liste"></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </section>
   </main>
 

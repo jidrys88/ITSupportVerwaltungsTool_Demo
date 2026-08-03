@@ -19,4 +19,5 @@ public class Kunde
     public string? Email { get; set; }
 
     public ICollection<Geraet> Geraete { get; set; } = new List<Geraet>();
+    public ICollection<Standort> Standorte { get; set; } = new List<Standort>();
 }

@@ -59,5 +59,10 @@ const Api = (() => {
     geraetErstellen: (kundeId, daten) => anfrage(`/kunden/${kundeId}/geraete`, { method: "POST", body: JSON.stringify(daten) }),
     geraetBearbeiten: (kundeId, id, daten) => anfrage(`/kunden/${kundeId}/geraete/${id}`, { method: "PUT", body: JSON.stringify(daten) }),
     geraetLoeschen: (kundeId, id) => anfrage(`/kunden/${kundeId}/geraete/${id}`, { method: "DELETE" }),
+
+    standorteListe: (kundeId) => anfrage(`/kunden/${kundeId}/standorte`),
+    standortErstellen: (kundeId, daten) => anfrage(`/kunden/${kundeId}/standorte`, { method: "POST", body: JSON.stringify(daten) }),
+    standortBearbeiten: (kundeId, id, daten) => anfrage(`/kunden/${kundeId}/standorte/${id}`, { method: "PUT", body: JSON.stringify(daten) }),
+    standortLoeschen: (kundeId, id) => anfrage(`/kunden/${kundeId}/standorte/${id}`, { method: "DELETE" }),
   };
 })();

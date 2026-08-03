@@ -5,11 +5,11 @@ public enum GeraeteTyp
     Server,
     Workstation,
     Notebook,
-    Switch,
-    Router,
     Drucker,
     Printserver,
     WLAN,
-    Firewall,
-    Telefon
+    Router,
+    Switch,
+    VPN,
+    VLAN
 }
