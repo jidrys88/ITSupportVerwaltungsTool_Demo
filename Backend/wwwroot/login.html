@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anmeldung – IT Support Verwaltungstool</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="login-seite">
+    <form class="login-box" id="login-formular">
+      <div class="logo-kreis">IT</div>
+      <h1>Anmeldung</h1>
+      <label>
+        Benutzername
+        <input type="text" id="benutzername" required autofocus />
+      </label>
+      <br />
+      <label>
+        Passwort
+        <input type="password" id="passwort" required />
+      </label>
+      <br /><br />
+      <button type="submit" class="primaer" style="width:100%">Anmelden</button>
+      <p class="fehler" id="fehler-text"></p>
+    </form>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    document.getElementById("login-formular").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const benutzername = document.getElementById("benutzername").value;
+      const passwort = document.getElementById("passwort").value;
+      const fehlerText = document.getElementById("fehler-text");
+      fehlerText.textContent = "";
+
+      try {
+        const antwort = await Api.login(benutzername, passwort);
+        Api.setToken(antwort.token, antwort.benutzername);
+        window.location.href = "index.html";
+      } catch (err) {
+        fehlerText.textContent = err.message || "Anmeldung fehlgeschlagen.";
+      }
+    });
+  </script>
+</body>
+</html>

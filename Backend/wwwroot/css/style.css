@@ -1,0 +1,190 @@
+:root {
+  --blau-dunkel: #0b3d91;
+  --blau: #1e5bd6;
+  --blau-hell: #e8f0fe;
+  --grau: #f4f6f9;
+  --text: #1a1a2e;
+  --rand: #d7e0ef;
+  --rot: #d1495b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--grau);
+  color: var(--text);
+}
+
+header.hauptmenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--blau-dunkel);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.logo-kreis {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--blau);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+nav.hauptmenu-links {
+  display: flex;
+  gap: 1.2rem;
+}
+
+nav.hauptmenu-links a,
+nav.hauptmenu-links button {
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+nav.hauptmenu-links a:hover,
+nav.hauptmenu-links button:hover {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.karte {
+  background: #fff;
+  border: 1px solid var(--rand);
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+h1, h2 { color: var(--blau-dunkel); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--rand);
+}
+
+th { color: var(--blau-dunkel); }
+
+tr:hover { background: var(--blau-hell); cursor: pointer; }
+
+form.formular {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+form.formular label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+input, select {
+  padding: 0.5rem;
+  border: 1px solid var(--rand);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button.primaer {
+  background: var(--blau);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button.primaer:hover { background: var(--blau-dunkel); }
+
+button.sekundaer {
+  background: #fff;
+  color: var(--blau);
+  border: 1px solid var(--blau);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button.loeschen {
+  background: #fff;
+  color: var(--rot);
+  border: 1px solid var(--rot);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.fehler {
+  color: var(--rot);
+  margin: 0.5rem 0;
+}
+
+.login-seite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 320px;
+  text-align: center;
+}
+
+.login-box .logo-kreis {
+  width: 56px;
+  height: 56px;
+  font-size: 1.4rem;
+  margin: 0 auto 1rem;
+  border: none;
+}
+
+.zurueck {
+  background: none;
+  border: none;
+  color: var(--blau);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  padding: 0;
+}

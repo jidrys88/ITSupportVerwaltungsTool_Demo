@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IT Support Verwaltungstool</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="hauptmenu">
+    <div class="logo">
+      <div class="logo-kreis">IT</div>
+      IT Support Verwaltungstool
+    </div>
+    <nav class="hauptmenu-links">
+      <a href="index.html">Startseite</a>
+      <button id="abmelden-btn">Abmelden</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Kundenliste -->
+    <section class="karte" id="kunden-ansicht">
+      <h1>Kunden</h1>
+      <form class="formular" id="kunde-formular">
+        <label>Name* <input type="text" id="kunde-name" required /></label>
+        <label>Email <input type="email" id="kunde-email" /></label>
+        <label>Telefonnummer <input type="text" id="kunde-telefon" /></label>
+        <label>Adresse <input type="text" id="kunde-adresse" /></label>
+        <div><button type="submit" class="primaer">Kunde hinzufügen</button></div>
+      </form>
+      <p class="fehler" id="kunde-fehler"></p>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>Telefon</th><th>Adresse</th></tr>
+        </thead>
+        <tbody id="kunden-liste"></tbody>
+      </table>
+    </section>
+
+    <!-- Geräteansicht (wird per JS ein-/ausgeblendet) -->
+    <section class="karte" id="geraete-ansicht" style="display:none">
+      <button class="zurueck" id="zurueck-btn">&larr; Zurück zu den Kunden</button>
+      <h1 id="geraete-kunde-name"></h1>
+
+      <h2>Gerät hinzufügen</h2>
+      <form class="formular" id="geraet-formular">
+        <label>Typ*
+          <select id="geraet-typ">
+            <option value="Server">Server</option>
+            <option value="Workstation">Workstation</option>
+            <option value="Notebook">Notebook</option>
+            <option value="Switch">Switch</option>
+            <option value="Router">Router</option>
+            <option value="Drucker">Drucker</option>
+            <option value="Printserver">Printserver</option>
+            <option value="WLAN">WLAN</option>
+            <option value="Firewall">Firewall</option>
+            <option value="Telefon">Telefon</option>
+          </select>
+        </label>
+        <label>Name* <input type="text" id="geraet-name" required /></label>
+        <label>Bezeichnung <input type="text" id="geraet-bezeichnung" /></label>
+        <label>IP-Adresse <input type="text" id="geraet-ip" /></label>
+        <label>Seriennummer <input type="text" id="geraet-seriennummer" /></label>
+        <div><button type="submit" class="primaer">Gerät hinzufügen</button></div>
+      </form>
+      <p class="fehler" id="geraet-fehler"></p>
+
+      <table>
+        <thead>
+          <tr><th>Typ</th><th>Name</th><th>IP</th><th>Seriennummer</th><th></th></tr>
+        </thead>
+        <tbody id="geraete-liste"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
